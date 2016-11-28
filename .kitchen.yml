@@ -13,9 +13,24 @@ platforms:
   - name: centos-7.2
 
 suites:
-  - name: default
+  - name: server
     run_list:
-      - recipe[jj_vault::default]
+      - recipe[jj_vault::server]
+    verifier:
+      inspec_tests:
+        - test/recipes
+    attributes:
+  - name: install_go
+    run_list:
+      - recipe[jj_vault::install_go]
+    verifier:
+      inspec_tests:
+        - test/recipes
+    attributes:
+  - name: vault_ssh_helper
+    run_list:
+      - recipe[jj_vault::install_go]
+      - recipe[jj_vault::vault_ssh_helper]
     verifier:
       inspec_tests:
         - test/recipes
